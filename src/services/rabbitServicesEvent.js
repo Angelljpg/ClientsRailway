@@ -3,18 +3,12 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const RABBITMQ_URL = "amqp://admin:admin@localhost";
+const RABBITMQ_URL = proccess.env.RABBITMQ_URL || "amqp://admin:admin@localhost";
 const RABBIT_EXCHANGE = "client_event";  // Nombre del Exchange
 const RABBIT_ROUTING_KEY = "client.created"; // Routing Key
 
 export async function clientCreatedEvent(client) {
-    const connection = await amqp.connect({
-        protocol: 'amqp',
-        hostname: process.env.RABBITMQ_HOST || 'localhost',
-        port:5672,
-        username: process.env.RABBITMQ_USER || 'user',
-        password: process.env.RABBITMQ_PASSWORD || 'password',
-    });
+    const connection = await amqp.connect(RABBITMQ_URL);
     const channel = await connection.createChannel();
 
     // Crear el Exchange si no existe (tipo topic)
