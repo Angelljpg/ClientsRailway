@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const RABBITMQ_URL = proccess.env.RABBITMQ_URL || "amqp://admin:admin@localhost";
+const RABBITMQ_URL = process.env.RABBITMQ_URL || "amqp://admin:admin@localhost";
+
 const RABBIT_EXCHANGE = "client_event";  // Nombre del Exchange
 const RABBIT_ROUTING_KEY = "client.created"; // Routing Key
 
